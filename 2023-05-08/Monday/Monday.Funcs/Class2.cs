@@ -8,8 +8,9 @@ public static class Class2
     public static LinkedList<T>? MergeK<T>(LinkedList<LinkedList<T>> list)
         where T : IComparable
     {
-        // Merge process goes through all k lists in the main list, time complexity is O(kn)
-        //1 iterator index for each linkedlist in list
+        // Merge process goes through all n lists in the main list
+        // Every operation reduces the list's size by 1, until only 1 list remains
+        // Time complexity is O(log(n))
 
         // While there are at least 2 internal linked lists:
         // Remove the first two, merge them, then add it back to the main list
@@ -41,7 +42,7 @@ public static class Class2
         {
             var a = A.First!.Value;
             var b = B.First!.Value;
-            //Add the node with the lower value to temp, and move its enumerator
+            //Add the node with the lower value to temp, and pop it from the list
             if (a.CompareTo(b) < 0)
             {
                 temp.AddLast(a);
@@ -49,14 +50,12 @@ public static class Class2
             }
             else
             {
-                /* if (iter2.MoveNext()) temp.AddLast(iter2.Current);
-                else break; */
                 temp.AddLast(b);
                 B.RemoveFirst();
             }
         }
 
-        //If either list had more, add it to the temp list
+        //If either list had more, pop and add it to the temp list
         while(A.Count>0){
             temp.AddLast(A.First!.Value);
             A.RemoveFirst();
